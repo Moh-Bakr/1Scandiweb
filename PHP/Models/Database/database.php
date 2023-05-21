@@ -21,4 +21,16 @@ class database
         }
         return $conn;
     }
+
+
+    public static function EXCQuery($query, $params = [])
+    {
+        $statement = self::GetConnection()->prepare($query);
+        $check = $statement->execute($params);
+        if (explode(' ', $query)[0] == "SELECT") {
+            return "ERROR";
+        } else {
+            return $check;
+        }
+    }
 }
