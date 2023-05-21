@@ -52,7 +52,6 @@ class validator extends ProductRequest
     {
         $val = trim($this->data['price']);
         $this->Rules->ValidateProduct($val, 'price');
-
     }
 
     private function ProductType()
@@ -78,8 +77,11 @@ class validator extends ProductRequest
                 $furniture->validate_HWL();
             }
         ];
-
-        $productValidation[$val]();
+        if (array_key_exists($val, $productValidation)) {
+            $productValidation[$val]();
+        } else {
+            $this->Rules->required($val, "type");
+        }
     }
 
 }
