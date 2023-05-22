@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Type;
-use Modules\Product\Http\Requests\StoreProductRequest;
+use Modules\Product\Http\Requests\StoreProductsRequest;
 use Modules\Product\Traits\ApiResponse;
 
 class ProductController extends Controller
@@ -60,13 +60,23 @@ class ProductController extends Controller
             'Furniture' => ['width', 'height', 'length']
         ];
 
-        $missingAttributes = array_diff($requiredAttributes[$type->name], array_keys($request->only($requiredAttributes[$type->name])));
+        $missingAttributes = array_diff($requiredAttributes[$type->name],
+            array_keys($request->only($requiredAttributes[$type->name])));
 
+        $missingFields = [];
         if (!empty($missingAttributes)) {
-            $missingFields = implode(', ', $missingAttributes);
-            $errorMessage = "The following fields are required for this type: {$missingFields}.";
-            return $this->errorResponse([$errorMessage], Response::HTTP_UNPROCESSABLE_ENTITY);
+            foreach ($missingAttributes as $attribute) {
+                $missingFields[] = "{$attribute} is required.";
+            }
+            return $this->errorResponse($missingFields, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+
+
+//        if (!empty($missingAttributes)) {
+//            $missingFields = implode(', ', $missingAttributes);
+//            $errorMessage = "The following fields are required for this type: {$missingFields}.";
+//            return $this->errorResponse([$errorMessage], Response::HTTP_UNPROCESSABLE_ENTITY);
+//        }
 
         $productAttributes = array_merge($productAttributes, $request->only($requiredAttributes[$type->name]));
         $product = Product::create($productAttributes);

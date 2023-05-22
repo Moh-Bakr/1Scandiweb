@@ -4,8 +4,9 @@ namespace Modules\Product\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Product\Entities\Type;
 
-class TypeDatabaseSeederTableSeeder extends Seeder
+class TypeDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.

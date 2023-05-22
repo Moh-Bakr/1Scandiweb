@@ -27,8 +27,8 @@ database and can be viewed in a tabular format.
 
 To install the app, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/example/product-list-app.git`
-2. Navigate to the app directory: `cd product-list-app`
+1. Clone the repository: `git clone git clone https://github.com/Moh-Bakr/JuniorDeveloperTask.git`
+2. Navigate to the app directory: `cd PHP`
 3. Create a MySQL database and import the `schemes.sql` file in the `database` folder.
 4. Edit the `connection.json` file in `config` folder with your SQL database credentials.
 5. Start the PHP development server: `php -S localhost:8000`
