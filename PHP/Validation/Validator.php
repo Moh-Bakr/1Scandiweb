@@ -77,11 +77,13 @@ class validator extends ProductRequest
                 $furniture->validate_HWL();
             }
         ];
-        if (array_key_exists($val, $productValidation)) {
-            $productValidation[$val]();
-        } else {
-            $this->Rules->required($val, "type");
-        }
+        $product = $productValidation[$val]?->();
+        $product?->validate() ?? $this->Rules->required($val, "type");
+//         if (array_key_exists($val, $productValidation)) {
+//             $productValidation[$val]();
+//         } else {
+//             $this->Rules->required($val, "type");
+//         }
     }
 
 }
