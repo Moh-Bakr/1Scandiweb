@@ -12,7 +12,7 @@
                                 <span class="input-group-text">SKU</span>
                             </div>
                             <input type="text" class="form-control" name="sku" id="sku"
-                                   value="<?php if (!empty($_POST)) echo $_POST['sku'] ?? ''; ?>">
+                                   value="<?= !empty($_POST['sku']) ? $_POST['sku'] : ''; ?>"
                         </div>
                         <div class="error text-danger font-weight-bold">
                             <?= $errors['sku'] ?? '' ?>
@@ -24,7 +24,7 @@
                                 <span class="input-group-text">Name</span>
                             </div>
                             <input type="text" class="form-control" name="name" id="name"
-                                   value="<?php if (!empty($_POST)) echo $_POST['name'] ?? ''; ?>">
+                                   value="<?= !empty($_POST['name']) ? $_POST['name'] : ''; ?>"
                         </div>
                         <div class="error text-danger font-weight-bold">
                             <?= $errors['name'] ?? '' ?>
@@ -36,7 +36,8 @@
                                 <span class="input-group-text">Price</span>
                             </div>
                             <input type="text" class="form-control" name="price" id="price"
-                                   value="<?php if (!empty($_POST)) echo $_POST['price'] ?? ''; ?>">
+                                   value="<?= !empty($_POST) ? $_POST['price'] ?? '' : ''; ?>"
+
                         </div>
                         <div class="error text-danger font-weight-bold">
                             <?= $errors['price'] ?? '' ?>
@@ -47,18 +48,15 @@
                             <label for="productType" class="input-group-text">ProductType</label>
                         </div>
                         <select name="type" class="custom-select" id="productType">
-                            <option selected value="<?php if (empty($_POST))
-                                echo('Type Switcher');
-                            else echo $_POST['type']; ?>">
-                                <?php if (!empty($_POST)) {
-                                    echo htmlspecialchars($_POST['type']) ?? '';
-                                } ?>
+                            <option selected
+                                    value="<?= !empty($_POST) ? htmlspecialchars($_POST['type']) : 'Type Switcher' ?>">
+                                    <?= !empty($_POST) ? htmlspecialchars($_POST['type']) : '' ?>
                             </option>
                             <option value="DVD" id="DVD">DVD</option>
                             <option value="Furniture" id="Furniture">Furniture</option>
                             <option value="Book" id="Book">Book</option>
-
                         </select>
+
                     </div>
                     <div class="error text-danger font-weight-bold">
                         <?= $errors['type'] ?? '' ?>
@@ -71,15 +69,12 @@
                                 <span class="input-group-text">Size</span>
                             </div>
                             <input type="text" class="form-control" name="size" id="size" placeholder=""
-                                   value="<?php if (!empty($_POST)) echo $_POST['size'] ?? ''; ?>">
+                                   value="<?= !empty($_POST['size']) ? $_POST['size'] : ''; ?>"
                             <div class="input-group-append">
                                 <span class="input-group-text">MB</span>
                             </div>
-                            <?php if (empty($errors)) {
-                                echo '<p class="my-2 text-secondary">
-                            Please provide DVD size in mega bytes
-                            </p>';
-                            } ?>
+                            <?= empty($errors) ? '<p class="my-2 text-secondary">Please provide DVD size in megabytes</p>' : ''; ?>
+
                         </div>
                         <div class="error text-danger font-weight-bold">
                             <?= $errors['size'] ?? '' ?>
@@ -91,15 +86,11 @@
                                 <span class="input-group-text">Weight</span>
                             </div>
                             <input type="text" class="form-control" name="weight" id="weight"
-                                   value="<?php if (!empty($_POST)) echo $_POST['weight'] ?? ''; ?>">
+                                   value="<?= !empty($_POST['weight']) ? $_POST['weight'] : ''; ?>"
                             <div class="input-group-append">
                                 <span class="input-group-text">KG</span>
                             </div>
-                            <?php if (empty($errors)) {
-                                echo '<p class="my-2 text-secondary">
-                               Please provide book weight in kilo grams
-                                </p>';
-                            } ?>
+                            <?= empty($errors) ? '<p class="my-2 text-secondary">Please provide book weight in kilograms</p>' : ''; ?>
                         </div>
                         <div class="error text-danger font-weight-bold">
                             <?= $errors['weight'] ?? '' ?>
@@ -112,7 +103,7 @@
                                     <span class="input-group-text">Height</span>
                                 </div>
                                 <input type="text" class="form-control" name="height" id="height"
-                                       value="<?php if (!empty($_POST)) echo $_POST['height'] ?? ''; ?>">
+                                       value="<?= !empty($_POST['height']) ? $_POST['height'] : ''; ?>"
                                 <div class="input-group-append">
                                     <span class="input-group-text">CM</span>
                                 </div>
@@ -128,7 +119,7 @@
                                         <span class="input-group-text">Width</span>
                                     </div>
                                     <input type="text" class="form-control" name="width" id="width"
-                                           value="<?php if (!empty($_POST)) echo $_POST['width'] ?? ''; ?>">
+                                           value="<?= !empty($_POST['width']) ? $_POST['width'] : ''; ?>"
                                     <div class="input-group-append">
                                         <span class="input-group-text">CM</span>
                                     </div>
@@ -143,7 +134,7 @@
                                         <span class="input-group-text">Length</span>
                                     </div>
                                     <input type="text" class="form-control" name="length" id="length"
-                                           value="<?php if (!empty($_POST)) echo $_POST['length'] ?? ''; ?>">
+                                           value="<?= !empty($_POST['length']) ? $_POST['length'] : ''; ?>"
                                     <div class="input-group-append">
                                         <span class="input-group-text">CM</span>
                                     </div>
@@ -152,11 +143,7 @@
                                     <?= $errors['length'] ?? '' ?>
                                 </div>
                             </div>
-                            <?php if (empty($errors)) {
-                                echo '<p class="my-2 text-secondary">
-                            Please provide dimensions in HxWxL format
-                        </p>';
-                            } ?>
+                            <?= empty($errors) ? '<p class="my-2 text-secondary">Please provide dimensions in HxWxL format</p>' : ''; ?>
                         </div>
                     </div>
                 </div>

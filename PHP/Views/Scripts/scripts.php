@@ -1,62 +1,38 @@
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        getSelectedType()
-    })
 
-    $('#productType').change(function () {
-        getSelectedType()
-    });
+    $(document).ready(function () {
+        const formMapping = {
+            'DVD': {
+                show: ['#dvd-form'],
+                hide: ['#book-form', '#furniture-form'],
+                clear: ['weight', 'height', 'width', 'length']
+            },
+            'Book': {
+                show: ['#book-form'],
+                hide: ['#dvd-form', '#furniture-form'],
+                clear: ['size', 'height', 'width', 'length']
+            },
+            'Furniture': {
+                show: ['#furniture-form'],
+                hide: ['#dvd-form', '#book-form'],
+                clear: ['size', 'weight']
+            }
+        };
 
-    function getSelectedType() {
-        var products = $('#productType').val();
-        var dvd = $('#dvd-form');
-        var book = $('#book-form');
-        var furniture = $('#furniture-form');
-        switch (products) {
-            case "DVD":
-                dvd.removeClass('d-none');
-                book.addClass('d-none');
-                furniture.addClass('d-none');
-                ClearDVD()
-                break;
-            case "Book":
-                dvd.addClass('d-none');
-                book.removeClass('d-none');
-                furniture.addClass('d-none');
-                ClearBook()
-                break;
-            case "Furniture":
-                dvd.addClass('d-none');
-                book.addClass('d-none');
-                furniture.removeClass('d-none');
-                ClearFurniture()
-                break;
-            default:
-                dvd.addClass('d-none');
-                book.addClass('d-none');
-                furniture.addClass('d-none');
-                break;
+        $('#productType').change(function () {
+            const selectedType = $(this).val();
+
+            Object.values(formMapping).forEach((form) => {
+                form.show.forEach((selector) => $(selector).toggleClass('d-none', form !== formMapping[selectedType]));
+                form.hide.forEach((selector) => $(selector).addClass('d-none'));
+            });
+
+            clearFormFields(formMapping[selectedType].clear);
+        });
+
+        function clearFormFields(fields) {
+            fields.forEach((field) => $('#' + field).val(0));
         }
-    }
-
-    function ClearDVD() {
-        $("#weight").val(0);
-        $("#height").val(0);
-        $("#width").val(0);
-        $("#length").val(0);
-    }
-
-    function ClearBook() {
-        $("#size").val(0);
-        $("#height").val(0);
-        $("#width").val(0);
-        $("#length").val(0);
-    }
-
-    function ClearFurniture() {
-        $("#size").val(0);
-        $("#weight").val(0);
-    }
-
+    });
 
 </script>
